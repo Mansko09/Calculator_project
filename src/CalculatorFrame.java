@@ -9,24 +9,27 @@ public class CalculatorFrame extends JFrame implements ActionListener {
     String operation = ""; // type of operation chosen
     String operand1 = "";
     String operand2 = "";
+    double lastResult = 0; // Store the result of the last operation
     JLabel resultLabel = new JLabel("");
-    JButton one_button = new JButton();
-    JButton two_button = new JButton();
-    JButton three_button = new JButton();
-    JButton four_button = new JButton();
-    JButton five_button = new JButton();
-    JButton six_button = new JButton();
-    JButton seven_button = new JButton();
-    JButton eight_button = new JButton();
-    JButton nine_button = new JButton();
-    JButton zero_button = new JButton();
-    JButton dot_button = new JButton();
-    JButton division_button = new JButton();
-    JButton times_button = new JButton();
-    JButton minus_button = new JButton();
-    JButton plus_button = new JButton();
-    JButton equal_button = new JButton();
-    JButton erase_button = new JButton();
+
+    JButton one_button = new JButton("1");
+    JButton two_button = new JButton("2");
+    JButton three_button = new JButton("3");
+    JButton four_button = new JButton("4");
+    JButton five_button = new JButton("5");
+    JButton six_button = new JButton("6");
+    JButton seven_button = new JButton("7");
+    JButton eight_button = new JButton("8");
+    JButton nine_button = new JButton("9");
+    JButton zero_button = new JButton("0");
+    JButton dot_button = new JButton(".");
+    JButton division_button = new JButton("/");
+    JButton times_button = new JButton("x");
+    JButton minus_button = new JButton("-");
+    JButton plus_button = new JButton("+");
+    JButton equal_button = new JButton("=");
+    JButton erase_button = new JButton("<-");
+    JButton ans_button = new JButton("Ans"); // Ans button
 
 
     CalculatorFrame() {
@@ -49,29 +52,19 @@ public class CalculatorFrame extends JFrame implements ActionListener {
 
         //Buttons for the numbers
         one_button.setBounds(20, 170, width, height);
-        one_button.setText("1");
         two_button.setBounds(70, 170, width, height);
-        two_button.setText("2");
         three_button.setBounds(120, 170, width, height);
-        three_button.setText("3");
         four_button.setBounds(170, 170, width, height);
-        four_button.setText("4");
         five_button.setBounds(20, 210, width, height);
-        five_button.setText("5");
         six_button.setBounds(70, 210, width, height);
-        six_button.setText("6");
         seven_button.setBounds(120, 210, width, height);
-        seven_button.setText("7");
         eight_button.setBounds(170, 210, width, height);
-        eight_button.setText("8");
         nine_button.setBounds(20, 250, width, height);
-        nine_button.setText("9");
         zero_button.setBounds(70, 250, width, height);
-        zero_button.setText("0");
         dot_button.setBounds(120, 250, width, height);
-        dot_button.setText(".");
         erase_button.setBounds(220,170,width,height);
-        erase_button.setText("<-");
+        ans_button.setBounds(220,210,width,height);
+
 
         //buttons for operations
 
@@ -99,11 +92,12 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                 one_button, two_button, three_button, four_button, five_button,
                 six_button, seven_button, eight_button, nine_button, zero_button,
                 dot_button, division_button, times_button, minus_button, plus_button,
-                equal_button, erase_button
+                equal_button, erase_button, ans_button
         };
         for (JButton button : buttons) {
             button.addActionListener(this);
             this.add(button);
+            button.setFocusable(false);// to stop the rectangle from appearing when clicking on a button
         }
 
         this.add(resultPanel);
@@ -171,8 +165,19 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                     }
                 }
                 break;
+            case "Ans":
+                if (!Double.isNaN(lastResult)) { // Check if lastResult is not NaN
+                    resultLabel.setText(resultLabel.getText() + Double.toString(lastResult));
+                    if (operation.isEmpty()) {
+                        operand1 += Double.toString(lastResult);
+                    } else {
+                        operand2 += Double.toString(lastResult);
+                    }
+                }
+                break;
         }
     }
+
     private double evaluateExpression() {
         double num1 = Double.parseDouble(operand1);
         double num2 = Double.parseDouble(operand2);
@@ -192,6 +197,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                     result = num1 / num2;
                 } else {
                     JOptionPane.showMessageDialog(this, "Error: Division by zero");
+                    resultLabel.setText("Error");
                 }
                 break;
         }
