@@ -1,2 +1,9 @@
-package PACKAGE_NAME;public class Operations {
+import javax.swing.*;
+
+public class Operations {
+
+    Operations() {
+
+
+    }
 }
