@@ -32,6 +32,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
     JButton erase_button = new JButton("<-");
     JButton ans_button = new JButton("Ans"); // previous answer button
     JButton clear_button = new JButton("Clr"); //button to clear the white panel
+    JButton sqrt_button = new JButton("√");
 
 
     CalculatorFrame() {
@@ -65,22 +66,18 @@ public class CalculatorFrame extends JFrame implements ActionListener {
         zero_button.setBounds(70, 250, width, height);
         dot_button.setBounds(120, 250, width, height);
         erase_button.setBounds(220,170,width,height);
-        ans_button.setBounds(20,330,2*width,height);
-        clear_button.setBounds(100,330,2*width,height);
+        ans_button.setBounds(20,330,width+30,height);
+        clear_button.setBounds(100,330,width+30,height);
+        sqrt_button.setBounds(220,210,width,height);
 
 
         //buttons for operations
 
         division_button.setBounds(170, 250, width, height);
-        division_button.setText("/");
         times_button.setBounds(20, 290, width, height);
-        times_button.setText("x");
         minus_button.setBounds(70, 290, width, height);
-        minus_button.setText("-");
         plus_button.setBounds(120, 290, width, height);
-        plus_button.setText("+");
         equal_button.setBounds(170, 290, width, height);
-        equal_button.setText("=");
 
 
         this.setTitle("The pink Calculator ");
@@ -95,7 +92,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                 one_button, two_button, three_button, four_button, five_button,
                 six_button, seven_button, eight_button, nine_button, zero_button,
                 dot_button, division_button, times_button, minus_button, plus_button,
-                equal_button, erase_button, ans_button, clear_button
+                equal_button, erase_button, ans_button, clear_button, sqrt_button
         };
         for (JButton button : buttons) {
             button.addActionListener(this);
@@ -156,6 +153,18 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                     operation = "";
                 }
                 break;
+            case "√":
+                if (!operand1.isEmpty() && operation.isEmpty()) {
+                    double number = Double.parseDouble(operand1);
+                    if (number >= 0) {
+                        double result = Math.sqrt(number);
+                        resultLabel.setText(Double.toString(result));
+                        operand1 = Double.toString(result);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error: Square root of a negative number");
+                        resultLabel.setText("Error");
+                    }
+                }
             case "<-":
                 if (!resultLabel.getText().isEmpty() && !resultLabel.getText().equals("Error")) {
                     String currentText = resultLabel.getText();
@@ -175,6 +184,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
             case "Clr":
                 resultLabel.setText("");
                 break;
+
         }
     }
 
