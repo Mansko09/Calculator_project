@@ -68,8 +68,8 @@ public class CalculatorFrame extends JFrame implements ActionListener {
         zero_button.setBounds(70, 250, width, height);
         dot_button.setBounds(120, 250, width, height);
         erase_button.setBounds(220,170,width,height);
-        ans_button.setBounds(20,330,width+30,height);
-        clear_button.setBounds(100,330,width+30,height);
+        ans_button.setBounds(30,330,2*width,height);
+        clear_button.setBounds(150,330,2*width,height);
         sqrt_button.setBounds(220,210,width,height);
         pourcentage_button.setBounds(220,250,width,height);
         power_button.setBounds(220,290,width,height);
