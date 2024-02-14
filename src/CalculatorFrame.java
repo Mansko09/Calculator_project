@@ -33,6 +33,8 @@ public class CalculatorFrame extends JFrame implements ActionListener {
     JButton ans_button = new JButton("Ans"); // previous answer button
     JButton clear_button = new JButton("Clr"); //button to clear the white panel
     JButton sqrt_button = new JButton("√");
+    JButton pourcentage_button = new JButton("%");
+    JButton power_button = new JButton("^");
 
 
     CalculatorFrame() {
@@ -69,6 +71,8 @@ public class CalculatorFrame extends JFrame implements ActionListener {
         ans_button.setBounds(20,330,width+30,height);
         clear_button.setBounds(100,330,width+30,height);
         sqrt_button.setBounds(220,210,width,height);
+        pourcentage_button.setBounds(220,250,width,height);
+        power_button.setBounds(220,290,width,height);
 
 
         //buttons for operations
@@ -92,7 +96,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                 one_button, two_button, three_button, four_button, five_button,
                 six_button, seven_button, eight_button, nine_button, zero_button,
                 dot_button, division_button, times_button, minus_button, plus_button,
-                equal_button, erase_button, ans_button, clear_button, sqrt_button
+                equal_button, erase_button, ans_button, clear_button, sqrt_button, pourcentage_button, power_button
         };
         for (JButton button : buttons) {
             button.addActionListener(this);
@@ -138,10 +142,8 @@ public class CalculatorFrame extends JFrame implements ActionListener {
             case "x":
             case "-":
             case "+":
-                if (!operand1.isEmpty()) {
-                    operation = buttonText;
-                    resultLabel.setText(resultLabel.getText() + buttonText);
-                }
+            case "^": // Add case for power operation
+                handleOperation(buttonText);
                 break;
             case "=":
                 if (!operand1.isEmpty() && !operand2.isEmpty() && !operation.isEmpty()) {
@@ -154,37 +156,27 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                 }
                 break;
             case "√":
-                if (!operand1.isEmpty() && operation.isEmpty()) {
-                    double number = Double.parseDouble(operand1);
-                    if (number >= 0) {
-                        double result = Math.sqrt(number);
-                        resultLabel.setText(Double.toString(result));
-                        operand1 = Double.toString(result);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Error: Square root of a negative number");
-                        resultLabel.setText("Error");
-                    }
-                }
+                handleSquareRoot();
+                break;
+            case "%":
+                handlePercentage();
+                break;
             case "<-":
-                if (!resultLabel.getText().isEmpty() && !resultLabel.getText().equals("Error")) {
-                    String currentText = resultLabel.getText();
-                    resultLabel.setText(currentText.substring(0, currentText.length() - 1));
-                    if (operation.isEmpty()) {
-                        operand1 = currentText.substring(0, currentText.length() - 1);
-                    } else {
-                        operand2 = currentText.substring(0, currentText.length() - 1);
-                    }
-                }
+                handleBackspace();
                 break;
             case "Ans":
-                if (!Double.isNaN(lastResult)) { // Check if lastResult is not NaN
-                    resultLabel.setText(resultLabel.getText()+previousResult);
-                }
+                handleAns();
                 break;
             case "Clr":
-                resultLabel.setText("");
+                handleClear();
                 break;
+        }
+    }
 
+    private void handleOperation(String op) {
+        if (!operand1.isEmpty() && operation.isEmpty()) {
+            operation = op;
+            resultLabel.setText(resultLabel.getText() + op);
         }
     }
 
@@ -210,8 +202,61 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                     resultLabel.setText("Error");
                 }
                 break;
+            case "^": // Handle power operation
+                result = Math.pow(num1, num2);
+                break;
         }
-        previousResult=Double.toString(result);
+        previousResult = Double.toString(result);
         return result;
+    }
+
+    private void handleSquareRoot() {
+        if (!operand1.isEmpty() && operation.isEmpty()) {
+            double number = Double.parseDouble(operand1);
+            if (number >= 0) {
+                double result = Math.sqrt(number);
+                resultLabel.setText(Double.toString(result));
+                operand1 = Double.toString(result);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: Square root of a negative number");
+                resultLabel.setText("Error");
+            }
+        }
+    }
+
+    private void handlePercentage() {
+        if (!operand1.isEmpty() && operation.isEmpty()) {
+            double number = Double.parseDouble(operand1);
+            if (number >= 0) {
+                double result = number / 100;
+                resultLabel.setText(Double.toString(result));
+                operand1 = Double.toString(result);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: cannot make a percentage out of this number");
+                resultLabel.setText("Error");
+            }
+        }
+    }
+
+    private void handleBackspace() {
+        if (!resultLabel.getText().isEmpty() && !resultLabel.getText().equals("Error")) {
+            String currentText = resultLabel.getText();
+            resultLabel.setText(currentText.substring(0, currentText.length() - 1));
+            if (operation.isEmpty()) {
+                operand1 = currentText.substring(0, currentText.length() - 1);
+            } else {
+                operand2 = currentText.substring(0, currentText.length() - 1);
+            }
+        }
+    }
+
+    private void handleAns() {
+        if (!Double.isNaN(lastResult)) { // Check if lastResult is not NaN
+            resultLabel.setText(resultLabel.getText() + previousResult);
+        }
+    }
+
+    private void handleClear() {
+        resultLabel.setText("");
     }
 }
