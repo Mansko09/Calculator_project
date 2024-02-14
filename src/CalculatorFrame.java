@@ -10,6 +10,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
     String operand1 = "";
     String operand2 = "";
     double lastResult = 0; // Store the result of the last operation
+    String previousResult;
     JLabel resultLabel = new JLabel("");
 
     JButton one_button = new JButton("1");
@@ -29,7 +30,8 @@ public class CalculatorFrame extends JFrame implements ActionListener {
     JButton plus_button = new JButton("+");
     JButton equal_button = new JButton("=");
     JButton erase_button = new JButton("<-");
-    JButton ans_button = new JButton("Ans"); // Ans button
+    JButton ans_button = new JButton("Ans"); // previous answer button
+    JButton clear_button = new JButton("Clr"); //button to clear the white panel
 
 
     CalculatorFrame() {
@@ -63,7 +65,8 @@ public class CalculatorFrame extends JFrame implements ActionListener {
         zero_button.setBounds(70, 250, width, height);
         dot_button.setBounds(120, 250, width, height);
         erase_button.setBounds(220,170,width,height);
-        ans_button.setBounds(220,210,width,height);
+        ans_button.setBounds(20,330,2*width,height);
+        clear_button.setBounds(100,330,2*width,height);
 
 
         //buttons for operations
@@ -92,7 +95,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                 one_button, two_button, three_button, four_button, five_button,
                 six_button, seven_button, eight_button, nine_button, zero_button,
                 dot_button, division_button, times_button, minus_button, plus_button,
-                equal_button, erase_button, ans_button
+                equal_button, erase_button, ans_button, clear_button
         };
         for (JButton button : buttons) {
             button.addActionListener(this);
@@ -102,7 +105,6 @@ public class CalculatorFrame extends JFrame implements ActionListener {
 
         this.add(resultPanel);
         this.add(label);
-
 
     }
 
@@ -167,13 +169,11 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                 break;
             case "Ans":
                 if (!Double.isNaN(lastResult)) { // Check if lastResult is not NaN
-                    resultLabel.setText(resultLabel.getText() + Double.toString(lastResult));
-                    if (operation.isEmpty()) {
-                        operand1 += Double.toString(lastResult);
-                    } else {
-                        operand2 += Double.toString(lastResult);
-                    }
+                    resultLabel.setText(resultLabel.getText()+previousResult);
                 }
+                break;
+            case "Clr":
+                resultLabel.setText("");
                 break;
         }
     }
@@ -201,11 +201,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
                 }
                 break;
         }
+        previousResult=Double.toString(result);
         return result;
     }
-
-
-
-
-
 }
