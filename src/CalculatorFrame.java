@@ -38,13 +38,13 @@ public class CalculatorFrame extends JFrame implements ActionListener {
 
 
     CalculatorFrame() {
-        ImageIcon iconlogo = new ImageIcon("C:\\Users\\mbeng\\Documents\\Programming_projects\\java_games\\Calculator_project\\calculator-icon.png");
+        ImageIcon iconlogo = new ImageIcon("calculator-icon.png");
         this.setIconImage(iconlogo.getImage());//change java logo
 
         JLabel label = new JLabel();
         //label.setText(" Pink Calculator ");
         //background
-        ImageIcon image = new ImageIcon("C:\\Users\\mbeng\\Documents\\Programming_projects\\java_games\\Calculator_project\\CALCULATOR.png");
+        ImageIcon image = new ImageIcon("CALCULATOR.png");
         label.setIcon(image);
         label.setHorizontalAlignment(JLabel.CENTER);
 
