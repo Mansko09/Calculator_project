@@ -174,10 +174,16 @@ public class CalculatorFrame extends JFrame implements ActionListener {
     }
 
     private void handleOperation(String op) {
-        if (!operand1.isEmpty() && operation.isEmpty()) {
-            operation = op;
-            resultLabel.setText(resultLabel.getText() + op);
+        if (operand1.isEmpty()) {
+            return; // If operand1 is empty, do nothing
         }
+
+        if (!operation.isEmpty()) {
+            evaluateExpression(); // If operation already exists, calculate the current result
+        }
+
+        operation = op; // Set the operation
+        resultLabel.setText(resultLabel.getText() + op); // Update the result label
     }
 
     private double evaluateExpression() {
