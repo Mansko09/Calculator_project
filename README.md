@@ -14,11 +14,11 @@ The Pink Calculator is a simple Java Swing application designed to perform basic
 
 ## Usage
 
-1. **Launching the Application**: Execute the `CalculatorFrame.java` file to start the calculator.
+1. **Launching the Application**: Execute the `CalculatorFrame.java` file to start the calculator (if it doesn't work directly, rerun it)
 2. **Input**: Use the number buttons (0-9), decimal point button, and operation buttons (+, -, x, /) to input the expression.
 3. **Square Root**: Use the "√" button to calculate the square root of a number.
 4. **Ans Button**: Press the "Ans" button to recall the previous result.
-5. **Clear**: Clear the input and result display by clicking the "Clr" button.
+5. **Clear**: Clear the input/result display by clicking the "Clr" button before submitting a new operation
 6. **Result Display**: The result of the calculation is displayed in the white panel.
 7. **Error Handling**: If an error occurs (e.g., division by zero or attempting to take the square root of a negative number), an appropriate error message is displayed.
 
