@@ -24,7 +24,9 @@ The Pink Calculator is a simple Java Swing application designed to perform basic
 
 ## Screenshots
 
-![image](https://github.com/Mansko09/Calculator_project/assets/127218021/2b5c757b-710f-4be0-b41a-ccb286869512)
+![image](https://github.com/Mansko09/Calculator_project/assets/127218021/0b476beb-17ef-40a8-8a89-0eac0f941641)
+![image](https://github.com/Mansko09/Calculator_project/assets/127218021/089d4888-15cb-4c11-8008-5bd29da25adb)
+
 
 
 ## Dependencies
