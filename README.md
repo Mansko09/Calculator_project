@@ -1,4 +1,4 @@
-
+## NOT LAUNCHED YET
 # Pink Calculator
 
 The Pink Calculator is a simple Java Swing application designed to perform basic arithmetic operations. It provides a user-friendly interface for performing calculations, with a pink-themed design.
